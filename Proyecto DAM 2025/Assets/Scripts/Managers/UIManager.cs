@@ -11,6 +11,7 @@ public class UIManager : Singleton<UIManager>
 
     [Header("Paneles")]
     [SerializeField] private GameObject panelStats;
+    [SerializeField] private GameObject panelInventario;
     //Creamos un Singleton Pattern para el uso de instancias.
     [Header("Barra")]
     [SerializeField] private Image vidaPlayer;
@@ -126,4 +127,20 @@ public class UIManager : Singleton<UIManager>
         expActual = pExpActual;
         expRequeridaNuevoNivel = pExpRequerida;
     }
+
+    #region Paneles
+
+    /*Abrir y poder cerrar el panel.
+    PanelStats vamos a activarlo o desactivarlo, panelStats.activeSelf devuelve true o false en función de si está activado o no. 
+    Como es falso y lo estamos negando vendría a ser verdadero.*/
+    public void AbrirCerrarPanelStats()
+    {
+        panelStats.SetActive(!panelStats.activeSelf);
+    }
+
+    public void AbrirCerrarPanelInventario()
+    {
+        panelInventario.SetActive(!panelInventario.activeSelf);
+    }
+    #endregion
 }

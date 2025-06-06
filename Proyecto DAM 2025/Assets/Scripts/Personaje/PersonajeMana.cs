@@ -10,6 +10,7 @@ public class PersonajeMana : MonoBehaviour
 
     //Solamente modificamos dentro de esta clase.
     public float ManaActual { get; private set; }
+    public bool SePuedeRestaurar => ManaActual < manaMax;
 
     //Obtenemos la referencia de la clase PersonajeVida.
     private PersonajeVida _personajeVida;
@@ -47,6 +48,23 @@ public class PersonajeMana : MonoBehaviour
             ManaActual -= cantidad;
             ActualizarBarraMana();
         }
+    }
+
+    //Método restaurar Maná, en caso de que el mana actual es mayor o igual regresamos porque no se puede acumular más.
+    public void RestaurarMana(float cantidad)
+    {
+        if (ManaActual >= manaMax)
+        {
+            return;
+        }
+
+        ManaActual += cantidad;
+        if (ManaActual > manaMax)
+        {
+            ManaActual = manaMax;
+        }
+
+        UIManager.Instance.ActualizarManaPersonaje(ManaActual, manaMax);
     }
 
     private void RegenerarMana()
