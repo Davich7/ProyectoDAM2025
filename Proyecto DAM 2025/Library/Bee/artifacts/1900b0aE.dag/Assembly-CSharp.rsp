@@ -364,6 +364,9 @@
 "Assets/Scripts/Personaje/PersonajeStats.cs"
 "Assets/Scripts/Personaje/PersonajeVida.cs"
 "Assets/Scripts/Personaje/VidaBase.cs"
+"Assets/Scripts/Waypoint/NPCMovimiento.cs"
+"Assets/Scripts/Waypoint/Waypoint.cs"
+"Assets/Scripts/Waypoint/WaypointMovimiento.cs"
 -langversion:8.0
 
 /deterministic
