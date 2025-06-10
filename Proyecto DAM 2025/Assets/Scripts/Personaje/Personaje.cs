@@ -50,6 +50,7 @@ public class Personaje : MonoBehaviour
                 break;
         }
         stats.PuntosDisponibles -= 1;
+
     }
     //Escuchamos el evento AgregarAtributo.
     private void OnEnable()

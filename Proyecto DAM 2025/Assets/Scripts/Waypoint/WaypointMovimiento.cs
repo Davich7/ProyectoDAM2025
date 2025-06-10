@@ -7,22 +7,23 @@ public enum DireccionMovimiento
 
 public class WaypointMovimiento : MonoBehaviour
 {
-    [SerializeField] private DireccionMovimiento direccion;
-    [SerializeField] private float velocidad;
+    [SerializeField] protected float velocidad;
 
     //En caso de querer actualizar el movimiento del personaje a otro punto de la ruta, deberemos actualizar el puntoActualIndex.
     public Vector3 PuntoPorMoverse => _waypoint.ObtenerPosicionMovimiento(puntoActualIndex);
 
-    private Waypoint _waypoint;
-    private int puntoActualIndex;
+    protected Waypoint _waypoint;
+    protected Animator _animator;
+    protected int puntoActualIndex;
     /*Necesitamos saber si el personaje se mueve a la izquierda o hacia la derecha.
     Esta variable ultima posición tiene que ser actualizada cada vez que llega a un punto.*/
-    private Vector3 ultimaPosicion;
+    protected Vector3 ultimaPosicion;
 
     //El personaje se moverá al punto original de la ruta.
     private void Start()
     {
         puntoActualIndex = 0;
+        _animator = GetComponent<Animator>();
         _waypoint = GetComponent<Waypoint>();
     }
 
@@ -31,6 +32,7 @@ public class WaypointMovimiento : MonoBehaviour
     {
         MoverPersonaje();
         RotarPersonaje();
+        RotarVertical();
         if (ComprobarPuntoActualAlcanzado())
         {
             ActualizarIndexMovimiento();
@@ -80,23 +82,13 @@ public class WaypointMovimiento : MonoBehaviour
     }
 
     //Hay que verificar si el personaje utiliza una dirección en horizontal.
-    private void RotarPersonaje()
+    protected virtual void RotarPersonaje()
     {
-        if (direccion != DireccionMovimiento.Horizontal)
-        {
-            return;
-        }
-    //Comparamos última posición con punto por mover. coordenada x hace referencia a movimiento a la derecha.
-    
-        if (PuntoPorMoverse.x > ultimaPosicion.x)
-        {
-            //Girar derecha.
-            transform.localScale = new Vector3(1,1,1);
-        }
-        else
-        {
-            //Girar izquierda.
-            transform.localScale = new Vector3(-1,1,1);
-        }
+
+    }
+
+    protected virtual void RotarVertical()
+    {
+
     }
 }
