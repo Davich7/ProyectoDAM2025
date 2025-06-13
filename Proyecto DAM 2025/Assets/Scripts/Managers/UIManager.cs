@@ -6,12 +6,14 @@ using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
 {
-    [Header("Paneles")]
+    [Header("Stats")]
     [SerializeField] private PersonajeStats stats;
 
     [Header("Paneles")]
     [SerializeField] private GameObject panelStats;
     [SerializeField] private GameObject panelInventario;
+    [SerializeField] private GameObject panelInspectorQuests;
+    [SerializeField] private GameObject panelPersonajeQuests;
     //Creamos un Singleton Pattern para el uso de instancias.
     [Header("Barra")]
     [SerializeField] private Image vidaPlayer;
@@ -23,6 +25,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private TextMeshProUGUI manaTMP;
     [SerializeField] private TextMeshProUGUI expTMP;
     [SerializeField] private TextMeshProUGUI nivelTMP;
+    [SerializeField] private TextMeshProUGUI monedasTMP;
 
 
     //Obtenemos referencia de todos los valores del panel
@@ -84,9 +87,11 @@ public class UIManager : Singleton<UIManager>
         expTMP.text = $"{((expActual/expRequeridaNuevoNivel) * 100):F2}%";
         //Actualización del nivel en la User Interface.
         nivelTMP.text = $"Nivel {stats.Nivel}";
+        //Actualización del oro ganado en el personaje.
+        monedasTMP.text = MonedasManager.Instance.MonedasTotales.ToString();
     }
 
-    //Metodo para actualizar  el panel.
+    //Metodo para actualizar el panel.
     private void ActualizarPanelStats()
     {
         //Si el panel no está activo, no hacemos nada.
@@ -142,5 +147,35 @@ public class UIManager : Singleton<UIManager>
     {
         panelInventario.SetActive(!panelInventario.activeSelf);
     }
+
+    public void AbrirCerrarPanelPersonajeQuests()
+    {
+        panelPersonajeQuests.SetActive(!panelPersonajeQuests.activeSelf);
+    }
+
+    public void AbrirCerrarPanelInspectorQuests()
+    {
+        panelInspectorQuests.SetActive(!panelInspectorQuests.activeSelf);
+    }
+
+    /*Método que permita activar el panel correspondiente según el tipo de interacción del NPC.
+    Para saber que panel abrir pasamos como parámetro InteracciónExtraNPC*/
+    public void AbrirPanelInteraccion(InteraccionExtraNPC tipoInteraccion)
+    {
+        switch (tipoInteraccion)
+        {
+            case InteraccionExtraNPC.Quests:
+                //Acción de abrir panel misiones.
+                AbrirCerrarPanelInspectorQuests();
+                break;
+            case InteraccionExtraNPC.Tienda:
+                break;
+            case InteraccionExtraNPC.Crafting:
+                break;
+        }
+        
+    }
+
+
     #endregion
 }

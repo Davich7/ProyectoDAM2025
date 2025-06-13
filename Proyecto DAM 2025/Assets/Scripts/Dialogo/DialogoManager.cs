@@ -51,6 +51,18 @@ public class DialogoManager : Singleton<DialogoManager>
                 despedidaMostrada = false;
                 return;
             }
+
+            //Verificamos si el NPC tiene algún tipo de interacción extra
+
+            if (NPCDisponible.Dialogo.ContieneInteraccionExtra)
+            {
+                //Abriremos el panel correspondiente a la interacción que tiene el NPC.
+                UIManager.Instance.AbrirPanelInteraccion(NPCDisponible.Dialogo.InteraccionExtra);
+                //Cerramos el panel diálogo correspondiente.
+                AbrirCerrarPanelDialogo(false);
+                return;
+            }
+
             if (dialogoAnimado)
             {
                 ContinuarDialogo();
