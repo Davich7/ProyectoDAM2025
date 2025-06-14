@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d00af0be11dd34786f279e7f026b4c, type: 3}
   m_Name: DialogoAldeano
   m_EditorClassIdentifier: 
-  Nombre: Junior
-  Icono: {fileID: 21300000, guid: 7fd0bd3c0a118fe408e43787f5c33aaa, type: 3}
+  Nombre: Abuelete
+  Icono: {fileID: 21300000, guid: 2b517ee58893ae04fb0ff52a9b4cc643, type: 3}
   ContieneInteraccionExtra: 0
   InteraccionExtra: 0
-  Saludo: "Hola Compa\xF1ero! \xBFComo est\xE1s?"
+  Saludo: Hirotake! Ven que te cuento una cosita...
   Conversacion:
-  - Oracion: "Mi familia me ha contado grandes historias sobre otros h\xE9roes que
-      se han adentrado en el bosque en busca de aventuras."
-  - Oracion: "En un futuro espero ser uno de sos NINJAS h\xE9roes como t\xFA."
-  Despedida: Ya no te molesto, Eres uno de los mejores ninjas que existe.
+  - Oracion: "Empieza tu historia hirotake, \xBFTe llamabas asi? "
+  - Oracion: "Esto que ves a la izquierda es una poci\xF3n, coge todas las que encuentres
+      no seas vago!"
+  - Oracion: "\xA1Ah!,  por aqui hay tambien otra cosita, es impotant\xEDsimo, "
+  - Oracion: "encuentralo y... \xA1COMIENZA TU AVENTUTRA!"
+  Despedida: "Ya no te molesto, \xA1CONVIERTETE EN EL MEJOR NINJA DEL MUNDO!"
