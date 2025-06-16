@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class PersonajeAnimaciones : MonoBehaviour
 {
@@ -40,7 +42,7 @@ public class PersonajeAnimaciones : MonoBehaviour
     {
         for (int i = 0; i < _animator.layerCount; i++)
         {
-            //Desactivación de todos los Layers.
+            //Desactivaciï¿½n de todos los Layers.
             _animator.SetLayerWeight(i, 0);
         }
 
@@ -66,15 +68,22 @@ public class PersonajeAnimaciones : MonoBehaviour
     }
     private void PersonajeDerrotadoRespuesta() 
     { 
-        //Si actualmente el peso de LayerIdle está activado, es seguro mostrar la animación de PersonajeDerrotado
         if (_animator.GetLayerWeight(_animator.GetLayerIndex(layerIdle)) == 1) 
-        
         {
             _animator.SetBool(derrotado, true);   
-        }
 
+            // Espera un momento y luego carga la escena Game Over
+            StartCoroutine(CargarEscenaGameOverConRetraso());
+        }
     }
-    //Llamado cuando la clase está activada.
+
+    private IEnumerator CargarEscenaGameOverConRetraso()
+    {
+        yield return new WaitForSeconds(2f); // espera 2 segundos para que la animaciÃ³n se vea
+        SceneManager.LoadScene("GameOver"); // usa el nombre exacto de la escena
+    }
+
+    //Llamado cuando la clase estï¿½ activada.
     private void OnEnable()
     {
         PersonajeVida.EventoPersonajeDerrotado += PersonajeDerrotadoRespuesta; 
@@ -83,7 +92,7 @@ public class PersonajeAnimaciones : MonoBehaviour
     //Llamado cuando la clase se desactiva.
     private void OnDisable()
     {
-        //Lógica para sobreescribir la barra de vida del personaje.
+        //Lï¿½gica para sobreescribir la barra de vida del personaje.
         PersonajeVida.EventoPersonajeDerrotado -= PersonajeDerrotadoRespuesta;
     }
 
