@@ -20,4 +20,11 @@ public class ItemPocionVida : InventarioItem
         }
         return false;
     }
+
+    public override string DescripcionItemCrafting()
+    {
+        // Cuando crafteamos una poción se mostrará.
+        string descripcion = $"Restaura {HPRestauracion} de Salud";
+        return descripcion;
+    }
 }

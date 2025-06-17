@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d20465b74d4dc54d88a8bd89a07acda, type: 3}
+  m_Name: ItemArmaMazo
+  m_EditorClassIdentifier: 
+  ID: ArmaMazo
+  Nombre: Mazo
+  Icono: {fileID: 21300000, guid: b949520d46265aa498ed6b8b0d96669c, type: 3}
+  Descripcion: "Mazo creado por los herreros de la aldea, utilizado para devastar
+    a los enemigos r\xE1pidamente."
+  Tipo: 0
+  EsConsumible: 0
+  EsAcumulable: 0
+  AcumulacionMax: 1
+  Cantidad: 0
+  Arma: {fileID: 11400000, guid: 2195352caa1b89e40803b48770f00f12, type: 2}

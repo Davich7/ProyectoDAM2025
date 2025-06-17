@@ -21,6 +21,11 @@ public class AccionSeguirPersonaje : IAAccion
         {
             return;
         }
+
+        if (controller.PersonajeReferencia.GetComponent<PersonajeVida>().Derrotado)
+        {
+            return;
+        }
         //Si tenemos la referencia obtenemos la dirección del personaje que es donde se moverá el enemigo.
         Vector3 dirHaciaPersonaje =
             controller.PersonajeReferencia.position - controller.transform.position;

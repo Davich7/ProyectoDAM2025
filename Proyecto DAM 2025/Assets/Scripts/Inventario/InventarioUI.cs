@@ -116,6 +116,31 @@ public class InventarioUI : Singleton<InventarioUI>
         }
     }
 
+    public void EquiparItem()
+    {
+        //Verificamos que tenemos seleccionado un slot en el inventario.
+        if (SlotSeleccionado != null)
+        {
+            SlotSeleccionado.SlotEquiparItem();
+            //Si le hemos dado al botón equipar hay que seleccionar el slot que teníamos
+            //seleccionado antes.
+            SlotSeleccionado.SeleccionarSlot();
+        }
+
+    }
+    public void RemoverItem()
+    {
+        //Verificamos que tenemos seleccionado un slot en el inventario.
+        if (SlotSeleccionado != null)
+        {
+            SlotSeleccionado.SlotRemoverItem();
+            //Si le hemos dado al botón eliminar hay que seleccionar el slot que teníamos
+            //seleccionado antes.
+            SlotSeleccionado.SeleccionarSlot();
+        }
+
+    }
+
     #region Evento
 
     //Método que acutualiza el inventario en función del index que ha sido seleccionado.

@@ -100,6 +100,32 @@ public class Inventario : Singleton<Inventario>
         return indexesDelItem;  
     }
 
+    public int ObtenerCantidadDeItems(string itemID)
+    {
+        List<int> indexes = VerificarExistencias (itemID);
+        // Recorremos todos los index y sumamos la cantidad de itemID a la total.
+        int cantidadTotal = 0;
+        foreach (int index in indexes)
+        {
+            // Check para verificar que el item guardado en la lista tien el ID.
+            if (itemsInventario[index].ID == itemID)
+            {
+                cantidadTotal += itemsInventario[index].Cantidad;
+            }
+        }
+        return cantidadTotal;
+    }
+
+    public void ConsumirItem(string itemID)
+    {
+        // Se necesita saber de que item se trata.
+        List<int> indexes = VerificarExistencias(itemID);
+        if (indexes.Count > 0)
+        {
+            EliminarItem(indexes[indexes.Count - 1]);
+        }
+    }
+
     //Método para añadir un item en un slot vacío.
     private void AñadirItemEnSlotDisponible(InventarioItem item, int cantidad)
     {
@@ -174,6 +200,41 @@ public class Inventario : Singleton<Inventario>
         }
     }
 
+    private void EquiparItem(int index)
+    {
+        //Antes de equipar un objeto hay que verificar que existe el objeto.
+        if (itemsInventario[index] == null)
+        {
+            return;
+        }
+
+        //Verificamos que el tipo de item que lanzamos el evento es de tipo Arma.
+        //Ya que solo se pueden equipar items que son armas.
+
+        if (itemsInventario[index].Tipo != TiposdeItem.Armas)
+        {
+            return;
+        }
+        //Si no se cumplen las condiciones anteriores, equipamos item como arma.
+        itemsInventario[index].EquiparItem();
+    }
+
+    private void RemoverItem(int index)
+    {
+        //Para poder eliminar un item, hay que verificar que hay un item en ese slot.
+        if (itemsInventario[index] == null)
+        {
+            return;
+        }
+        //Cuando eliminamos el item, este tiene que ser de tipo Armas.
+        if (itemsInventario[index].Tipo != TiposdeItem.Armas)
+        {
+            return;
+        }
+        //Si es un arma
+        itemsInventario[index].RemoverItem();
+    }
+
     #region Eventos
 
     //Respuesta de cada botón habilitado en el inventario.
@@ -185,8 +246,10 @@ public class Inventario : Singleton<Inventario>
                 UsarItem(index);
                 break;
             case TipoDeInteraccion.Equipar:
+                EquiparItem(index);
                 break;
             case TipoDeInteraccion.Remover:
+                RemoverItem(index);
                 break;
         }
     }

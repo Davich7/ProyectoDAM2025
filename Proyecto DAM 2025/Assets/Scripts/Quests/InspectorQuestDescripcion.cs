@@ -28,8 +28,10 @@ public class InspectorQuestDescripcion : QuestDescripcion
         {
             return;
         }
-        //La misión aceptada se añade en el panel del personaje de misiones.
 
+        QuestPorCompletar.QuestAceptado = true;
+
+        //La misión aceptada se añade en el panel del personaje de misiones.
         QuestManager.Instance.AñadirQuest(QuestPorCompletar);
 
         //Eliminamos la misión del panel del inspector.

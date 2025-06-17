@@ -11,6 +11,9 @@ public class UIManager : Singleton<UIManager>
 
     [Header("Paneles")]
     [SerializeField] private GameObject panelStats;
+    [SerializeField] private GameObject panelTienda;
+    [SerializeField] private GameObject panelCrafting;
+    [SerializeField] private GameObject panelCraftingInfo;
     [SerializeField] private GameObject panelInventario;
     [SerializeField] private GameObject panelInspectorQuests;
     [SerializeField] private GameObject panelPersonajeQuests;
@@ -39,6 +42,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private TextMeshProUGUI statNivelTMP;
     [SerializeField] private TextMeshProUGUI statExpTMP;
     [SerializeField] private TextMeshProUGUI statExpRequeridaTMP;
+    [SerializeField] private TextMeshProUGUI statExpTotalTMP;
     [SerializeField] private TextMeshProUGUI atributoFuerzaTMP;
     [SerializeField] private TextMeshProUGUI atributoInteligenciaTMP;
     [SerializeField] private TextMeshProUGUI atributoDestrezaTMP;
@@ -108,6 +112,7 @@ public class UIManager : Singleton<UIManager>
         statNivelTMP.text = stats.Nivel.ToString();
         statExpTMP.text = stats.ExpActual.ToString();
         statExpRequeridaTMP.text = stats.ExpRequeridaSiguienteNivel.ToString();
+        statExpTotalTMP.text = stats.ExpTotal.ToString();
         //Actualizamos datos del panel.
 
         atributoFuerzaTMP.text = stats.Fuerza.ToString();
@@ -143,6 +148,27 @@ public class UIManager : Singleton<UIManager>
         panelStats.SetActive(!panelStats.activeSelf);
     }
 
+    public void AbrirCerrarPanelTienda()
+    {
+        panelTienda.SetActive(!panelTienda.activeSelf);
+    }
+
+    public void AbrirPanelCrafting()
+    {
+        panelCrafting.SetActive(true);
+    }
+
+    public void CerrarPanelCrafting()
+    {
+        panelCrafting.SetActive(false);
+        AbrirCerrarPanelCraftingInformacion(false);
+    }
+
+    public void AbrirCerrarPanelCraftingInformacion(bool estado)
+    {
+        panelCraftingInfo.SetActive(estado);
+    }
+
     public void AbrirCerrarPanelInventario()
     {
         panelInventario.SetActive(!panelInventario.activeSelf);
@@ -169,8 +195,10 @@ public class UIManager : Singleton<UIManager>
                 AbrirCerrarPanelInspectorQuests();
                 break;
             case InteraccionExtraNPC.Tienda:
+                AbrirCerrarPanelTienda();
                 break;
             case InteraccionExtraNPC.Crafting:
+                AbrirPanelCrafting();
                 break;
         }
         

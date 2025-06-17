@@ -6,13 +6,16 @@ public class Personaje : MonoBehaviour
     //Referencia a los Stats para poder agregar Atributo.
     [SerializeField] private PersonajeStats stats;
 
+    //Creamos propiedades de otras clases para poder acceder a ellas.
     //Solamente obtenemos el valor en estas clases (priv).
+    public PersonajeAtaque PersonajeAtaque { get; private set; }
     public PersonajeExperiencia PersonajeExperiencia {  get; private set; }
     public PersonajeVida PersonajeVida { get; private set; }
     public PersonajeAnimaciones PersonajeAnimaciones { get; private set; }
     public PersonajeMana PersonajeMana { get; private set; }
     private void Awake()
     {
+        PersonajeAtaque = GetComponent<PersonajeAtaque>();
         PersonajeVida = GetComponent<PersonajeVida>();
         PersonajeAnimaciones = GetComponent<PersonajeAnimaciones>();
         PersonajeMana = GetComponent<PersonajeMana>();
