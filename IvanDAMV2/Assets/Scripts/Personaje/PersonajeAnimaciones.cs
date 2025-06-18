@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class PersonajeAnimaciones : MonoBehaviour
 {
     [SerializeField] private string layerIdle;
     [SerializeField] private string layerCaminar;
+    [SerializeField] private string layerAtacar;
 
     private Animator _animator;
     private PersonajeMovimiento _personajeMovimiento;
+    private PersonajeAtaque _personajeAtaque;
 
     private readonly int direccionX = Animator.StringToHash("X");
     private readonly int direccionY = Animator.StringToHash("Y");
@@ -21,6 +22,7 @@ public class PersonajeAnimaciones : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _personajeMovimiento = GetComponent<PersonajeMovimiento>();
+        _personajeAtaque = GetComponent<PersonajeAtaque>();
     }
     private void Start()
     {
@@ -42,7 +44,7 @@ public class PersonajeAnimaciones : MonoBehaviour
     {
         for (int i = 0; i < _animator.layerCount; i++)
         {
-            //Desactivaciï¿½n de todos los Layers.
+            //Desactivación de todos los Layers.
             _animator.SetLayerWeight(i, 0);
         }
 
@@ -52,7 +54,12 @@ public class PersonajeAnimaciones : MonoBehaviour
 
     private void ActualizarLayers()
     {
-        if (_personajeMovimiento.EnMovimiento)
+        //Verificamos si estamos atacando
+        if (_personajeAtaque.Atacando)
+        {
+            ActivarLayer(layerAtacar);
+        }
+        else if (_personajeMovimiento.EnMovimiento)
         {
             ActivarLayer(layerCaminar);
         }
@@ -68,22 +75,28 @@ public class PersonajeAnimaciones : MonoBehaviour
     }
     private void PersonajeDerrotadoRespuesta() 
     { 
+        //Si actualmente el peso de LayerIdle está activado, es seguro mostrar la animación de PersonajeDerrotado
         if (_animator.GetLayerWeight(_animator.GetLayerIndex(layerIdle)) == 1) 
+        
         {
             _animator.SetBool(derrotado, true);   
-
-            // Espera un momento y luego carga la escena Game Over
-            StartCoroutine(CargarEscenaGameOverConRetraso());
         }
+
+        else
+        {
+            ActivarLayer(layerIdle);
+            _animator.SetBool(derrotado, true);
+        }
+        // Espera un momento y luego carga la escena Game Over
+        StartCoroutine(CargarEscenaGameOverConRetraso());
     }
 
     private IEnumerator CargarEscenaGameOverConRetraso()
     {
-        yield return new WaitForSeconds(2f); // espera 2 segundos para que la animaciÃ³n se vea
+        yield return new WaitForSeconds(2f); // espera 2 segundos para que la animación se vea
         SceneManager.LoadScene("GameOver"); // usa el nombre exacto de la escena
     }
-
-    //Llamado cuando la clase estï¿½ activada.
+    //Llamado cuando la clase está activada.
     private void OnEnable()
     {
         PersonajeVida.EventoPersonajeDerrotado += PersonajeDerrotadoRespuesta; 
@@ -92,7 +105,7 @@ public class PersonajeAnimaciones : MonoBehaviour
     //Llamado cuando la clase se desactiva.
     private void OnDisable()
     {
-        //Lï¿½gica para sobreescribir la barra de vida del personaje.
+        //Lógica para sobreescribir la barra de vida del personaje.
         PersonajeVida.EventoPersonajeDerrotado -= PersonajeDerrotadoRespuesta;
     }
 

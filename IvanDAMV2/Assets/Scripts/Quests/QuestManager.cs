@@ -101,8 +101,10 @@ public class QuestManager : Singleton<QuestManager>
     public void AñadirProgreso(string questID, int cantidad)
     {
         Quest questPorActualizar = QuestExiste(questID);
-        questPorActualizar.AñadirProgreso(cantidad);
-
+        if (questPorActualizar.QuestAceptado)
+        {
+            questPorActualizar.AñadirProgreso(cantidad);
+        }
     }
 
     //Método que regrese la referencia de la misión con el identificador questID.
@@ -147,6 +149,10 @@ public class QuestManager : Singleton<QuestManager>
   
     private void OnEnable()
     {
+        for (int i = 0; i < questDisponibles.Length; i++)
+        {
+            questDisponibles[i].ResetQuest();
+        }
         Quest.EventoQuestCompletado += QuestCompletadoRespuesta;
     }
     private void OnDisable()

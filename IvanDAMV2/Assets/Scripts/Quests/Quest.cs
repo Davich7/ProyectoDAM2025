@@ -27,6 +27,7 @@ public class Quest : ScriptableObject
     [HideInInspector] public int CantidadActual;
     //Variable oculta para saber si la misión se ha completado.
     [HideInInspector] public bool QuestCompletadoCheck;
+    [HideInInspector] public bool QuestAceptado;
 
     public void AñadirProgreso(int cantidad)
     {
@@ -62,11 +63,12 @@ public class Quest : ScriptableObject
         EventoQuestCompletado?.Invoke(this);
     }
 
-    private void OnEnable()
+    public void ResetQuest()
     {
         QuestCompletadoCheck = false;
         CantidadActual = 0;
     }
+
 }
 //Para ver clase en Inspector de Unity.
 [Serializable]

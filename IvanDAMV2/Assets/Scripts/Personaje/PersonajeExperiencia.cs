@@ -15,7 +15,6 @@ public class PersonajeExperiencia : MonoBehaviour
 
 
     private float expActual;
-    private float expActualTemp;
     private float expRequeridaSiguienteNivel;
     private void Start()
     {
@@ -35,34 +34,23 @@ public class PersonajeExperiencia : MonoBehaviour
     }
     public void AñadirExperiencia(float expObtenida)
     {
-
-        // Cuando matamos a un enemigo, si obtenemos 10 de experiencia
-        if (expObtenida > 0f)
-        {
-            //Controlamos la experiencia
-            float expRestanteNuevoNivel = expRequeridaSiguienteNivel - expActualTemp;
-            if (expObtenida >= expRestanteNuevoNivel)
-            {
-                //A la experiencia obtenida le restamos la experiencia del nuevo nivel. Sería 8 de experiencia y actualizamos el nivel
-                expObtenida -= expRestanteNuevoNivel;
-                expActual += expObtenida;
-                ActualizarNivel();
-                //Llamamos al mismo método AñadirExperiencia dentro del mismo método como recursión
-                AñadirExperiencia(expObtenida);
-            }
-            else
-            {
-                expActual += expObtenida;
-                expActualTemp += expObtenida;
-                if (expActualTemp == expRequeridaSiguienteNivel)
-                {
-                    ActualizarNivel();
-                }
-            }
-        }
+        if (expObtenida <= 0) return;
+        expActual += expObtenida;
         stats.ExpActual = expActual;
+
+        if (expActual == expRequeridaSiguienteNivel)
+        {
+            ActualizarNivel();
+        }
+        else if (expActual > expRequeridaSiguienteNivel)
+        {
+            float dif = expActual - expRequeridaSiguienteNivel;
+            ActualizarNivel();
+            AñadirExperiencia(dif);
+        }
+
+        stats.ExpTotal += expObtenida;
         ActualizarBarraExp();
-        
     }
 
     /*Actualizaremos la experiencia requerida para el siguiente nivel. Actualizaremos el nivel y la experiencia actual temporal siempre que nuestro nivel sea menor que el 
@@ -72,7 +60,8 @@ public class PersonajeExperiencia : MonoBehaviour
         if (stats.Nivel < nivelMax) 
         {
             stats.Nivel++;
-            expActualTemp = 0f;
+            stats.ExpActual = 0;
+            expActual = 0;
             expRequeridaSiguienteNivel *= valorIncremental;
             stats.ExpRequeridaSiguienteNivel = expRequeridaSiguienteNivel;
             stats.PuntosDisponibles += 3;
@@ -82,7 +71,21 @@ public class PersonajeExperiencia : MonoBehaviour
     {
         //El valor será la experencia
 
-        UIManager.Instance.ActualizarExpPersonaje(expActualTemp, expRequeridaSiguienteNivel);
+        UIManager.Instance.ActualizarExpPersonaje(expActual, expRequeridaSiguienteNivel);
  
+    }
+
+    private void RespuestaEnemigoDerrotado(float exp)
+    {
+        AñadirExperiencia(exp);
+    }
+    private void OnEnable()
+    {
+        EnemigoVida.EventoEnemigoDerrotado += RespuestaEnemigoDerrotado;
+    }
+
+    private void OnDisable()
+    {
+        EnemigoVida.EventoEnemigoDerrotado -= RespuestaEnemigoDerrotado;
     }
 }

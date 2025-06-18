@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d20465b74d4dc54d88a8bd89a07acda, type: 3}
+  m_Name: ItemArmaVara
+  m_EditorClassIdentifier: 
+  ID: ArmaVara
+  Nombre: Vara
+  Icono: {fileID: 21300000, guid: f7d02e4676524fa409dfd2e5793e1acf, type: 3}
+  Descripcion: "Arma con da\xF1o moderado, los mejores maestros siempre utilizan
+    una."
+  Tipo: 0
+  EsConsumible: 0
+  EsAcumulable: 0
+  AcumulacionMax: 1
+  Cantidad: 0
+  Arma: {fileID: 11400000, guid: 05ead3ef847c9494988ee5cce3dc6963, type: 2}

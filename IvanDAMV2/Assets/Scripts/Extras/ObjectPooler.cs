@@ -15,14 +15,14 @@ public class ObjectPooler : MonoBehaviour
 
     //Gameobject que crearemos en tiempo real en nuestra jerarquía para poder contener
     //todas las instancias que estamos creando.
-    public GameObject listaContenedor { get; private set; }
+    public GameObject ListaContenedor { get; private set; }
 
     public void CrearPooler(GameObject objetoPorCrear)
     {
         //Inicializamos lista.
         lista = new List<GameObject>();
         //Especificamos el nombre del GameObject, indicamos que es un Pool junto con el nombre del objeto que estamos creando.
-        listaContenedor = new GameObject($"Pool - {objetoPorCrear.name}");
+        ListaContenedor = new GameObject($"Pool - {objetoPorCrear.name}");
 
         //Recorremos la cantidad de instancias que vamos a crear.
         for (int i = 0; i < cantidadPorCrear; i++)
@@ -33,25 +33,32 @@ public class ObjectPooler : MonoBehaviour
         
     private GameObject AñadirInstancia(GameObject objetoPorCrear)
     {
-        //Instanciamos objetoPorCrear en el contenedor en nuestra jerarquía y lo guardamos dentro de nuevoObjeto.
+        // Instanciamos objetoPorCrear en el contenedor en nuestra jerarquía y lo guardamos dentro de nuevoObjeto.
         GameObject nuevoObjeto = Instantiate(objetoPorCrear, 
-            listaContenedor.transform);
-        //Cada instancia dentro del pooler debe de estar desactivada. Solo se activa cuando se utiliza.
+            ListaContenedor.transform);
+        // Cada instancia dentro del pooler debe de estar desactivada. Solo se activa cuando se utiliza.
         nuevoObjeto.SetActive(false);
         return nuevoObjeto;
     }
 
     public GameObject ObtenerInstancia()
     {
-        //Recorremos la lista.
+        // Recorremos la lista.
         for (int i = 0; i < lista.Count; i++)
         {
-            //Buscamos el primer objeto que encontremos que no esté siendo utilizado.
+            // Buscamos el primer objeto que encontremos que no esté siendo utilizado.
             if (lista[i].activeSelf == false)
             {
                 return lista[i];
             }
         }
         return null;
+    }
+
+    // Método cuando el arma se desequipe se necesita destruir el pooler con los proyectiles del arma.
+    public void DestruirPooler()
+    {
+        Destroy(ListaContenedor);
+        lista.Clear();
     }
 }

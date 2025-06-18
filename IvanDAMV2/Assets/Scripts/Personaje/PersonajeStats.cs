@@ -16,6 +16,7 @@ public class PersonajeStats : ScriptableObject
     public float Nivel;
     public float ExpActual;
     public float ExpRequeridaSiguienteNivel;
+    public float ExpTotal;
     //Modificar valores en rango de 0-100
     [Range(0f, 100f)] public float PorcentajeCritico;
     [Range(0f, 100f)] public float PorcentajeBloqueo;
@@ -48,6 +49,22 @@ public class PersonajeStats : ScriptableObject
         PorcentajeBloqueo += 0.05f;
     }
 
+    // Equipar arma aumenta estadísticas del personaje.
+    public void AñadirBonusPorArma(Arma arma)
+    {
+        Daño += arma.Daño;
+        PorcentajeCritico += arma.ChanceCritico;
+        PorcentajeBloqueo += arma.ChanceBloqueo;
+    }
+
+    // Desequipar el arma elimina estadísticas al personaje.
+    public void RemoverBonusPorArma(Arma arma)
+    {
+        Daño += arma.Daño;
+        PorcentajeCritico -= arma.ChanceCritico;
+        PorcentajeBloqueo -= arma.ChanceBloqueo;
+    }
+
     //Cuando llamamos al método ResetearValores() también reseteamos los valores de Fuerza, Intelligencia y Destreza.
     public void ResetearValores()
     {
@@ -57,6 +74,7 @@ public class PersonajeStats : ScriptableObject
         Nivel = 1f;
         ExpActual = 0f;
         ExpRequeridaSiguienteNivel = 0f;
+        ExpTotal = 0;
         PorcentajeBloqueo = 0f;
         PorcentajeCritico = 0f;
 

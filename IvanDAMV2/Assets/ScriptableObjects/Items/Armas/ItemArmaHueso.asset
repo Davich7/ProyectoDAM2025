@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d20465b74d4dc54d88a8bd89a07acda, type: 3}
+  m_Name: ItemArmaHueso
+  m_EditorClassIdentifier: 
+  ID: ArmaHueso
+  Nombre: Hueso
+  Icono: {fileID: 21300000, guid: 817b32e540576e94a9541fa91db71bc3, type: 3}
+  Descripcion: "Un arma formada por huesos aterradores, creada para un prop\xF3sito
+    prohibido por los samurais."
+  Tipo: 0
+  EsConsumible: 0
+  EsAcumulable: 0
+  AcumulacionMax: 1
+  Cantidad: 0
+  Arma: {fileID: 11400000, guid: 92fcc874e20cfd5458da1f08517853f0, type: 2}

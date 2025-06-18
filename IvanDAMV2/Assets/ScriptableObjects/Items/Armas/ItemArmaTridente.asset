@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d20465b74d4dc54d88a8bd89a07acda, type: 3}
+  m_Name: ItemArmaTridente
+  m_EditorClassIdentifier: 
+  ID: ArmaTridente
+  Nombre: Tridente
+  Icono: {fileID: 21300000, guid: 36b6398d37ae6164f89d3823f2aaca99, type: 3}
+  Descripcion: "Arma temida por todos los enemigos, con ella parecer\xE1s el mismisimo
+    Poseid\xF3n."
+  Tipo: 0
+  EsConsumible: 0
+  EsAcumulable: 0
+  AcumulacionMax: 1
+  Cantidad: 0
+  Arma: {fileID: 11400000, guid: 7de48a918a2e23f41adf17120c097f68, type: 2}
